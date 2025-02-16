@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: notenest
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - PYTHONUNBUFFERED=1
+  
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: note
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

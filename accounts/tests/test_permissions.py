@@ -1,5 +1,5 @@
 from django.test import TestCase
-from rest_framework.test import APIClient,APIRequestFactory
+from rest_framework.test import APIRequestFactory
 from rest_framework.exceptions import AuthenticationFailed
 from accounts.permissions import TokenAuthenticationPermission
 from accounts.models import Auth_Token,CustomUser

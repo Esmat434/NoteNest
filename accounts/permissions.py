@@ -21,3 +21,8 @@ class TokenAuthenticationPermission(permissions.BasePermission):
             return True
         except Auth_Token.DoesNotExist:
             raise AuthenticationFailed({"detial":"Invalid Token"})
+
+class AllowAnyUser(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        return True

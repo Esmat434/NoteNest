@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .models import Auth_Token
 from rest_framework.authentication import get_authorization_header
 from .serializer import RegistrationSerializer,LoginSerializer,ProfileSerializer
-from .permissions import TokenAuthenticationPermission
+from .permissions import TokenAuthenticationPermission,AllowAnyUser
 from .models import Profile
 
 # Create your views here.
@@ -13,6 +13,8 @@ from .models import Profile
 User = get_user_model()
 
 class RegistrationView(APIView):
+    permission_classes = [AllowAnyUser]
+
     def post(self,request):
         serialzier = RegistrationSerializer(data=request.data)
         if serialzier.is_valid():
@@ -22,6 +24,8 @@ class RegistrationView(APIView):
             return Response({"Message":"Enter valid data."},status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
+    permission_classes = [AllowAnyUser]
+
     def post(self,request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -33,8 +37,6 @@ class LoginView(APIView):
                 return Response({"token":token.key},status=status.HTTP_200_OK)
             else:
                 return Response({"error":"Invalid credentials."},status=status.HTTP_400_BAD_REQUEST)
-    
-
 
 class LogoutView(APIView):
     permission_classes = [TokenAuthenticationPermission] # this for check authentication befor log out

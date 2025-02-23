@@ -40,7 +40,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'accounts.middlewares.TokenExpirationMiddleware',
+    # third party middlewares
+    'accounts.middlewares.TokenExpirationMiddleware', # check token expiration
+    'accounts.middlewares.LoginRateLimitationMiddleware', # login limitation
+    'note.middlewares.security.SecurityMiddleware', # scurity must running very fast
+    'note.middlewares.cross_origin_resource_sharing.CrosMiddleware', 
+    'note.middlewares.rate_limiting.RateLimitingMiddleware', # limitation of all request
+    'note.middlewares.cache.CacheMiddleware', # cache the data
+    'note.middlewares.custom_header.CustomHeaderMiddleware', # add custom headers
+    'note.middlewares.error_handling.ErrorHandlingMiddleware', # check the error and handle
 ]
 
 ROOT_URLCONF = 'core.urls'
